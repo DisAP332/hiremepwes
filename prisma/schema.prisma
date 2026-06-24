@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BookingStatus {
+  pending
+  accepted
+  declined
+  needs_followup
+  completed
+  cancelled
+}
+
+enum ServiceCategory {
+  cleaning_reset
+  pc_phone_repair
+  ai_data_protection
+  masks_crafts
+  custom_help
+}
+
+enum ReviewStatus {
+  pending
+  approved
+  hidden
+}
+
+model BookingRequest {
+  id                String          @id @default(cuid())
+  status            BookingStatus   @default(pending)
+  serviceCategory   ServiceCategory
+  serviceLabel      String
+  name              String
+  email             String
+  phone             String?
+  socialLink        String
+  zipCode           String
+  addressDetails    String?
+  preferredDates    String
+  availabilityNotes String?
+  urgency           String
+  homeSize          String?
+  intensity         Int?
+  hasSupplies       String?
+  suppliesNote      String?
+  deviceType        String?
+  aiPrivacyConcern  String?
+  budgetPreference  String?
+  photoUrls         String[]        @default([])
+  notes             String?
+  adminNotes        AdminNote[]
+  calendarEventId   String?
+  scheduledStart    DateTime?
+  scheduledEnd      DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model ContactMessage {
+  id              String          @id @default(cuid())
+  serviceCategory ServiceCategory?
+  name            String
+  email           String
+  phone           String?
+  socialLink      String?
+  message         String
+  createdAt       DateTime        @default(now())
+}
+
+model Review {
+  id          String       @id @default(cuid())
+  status      ReviewStatus @default(pending)
+  initials    String
+  rating      Int
+  serviceUsed String
+  body        String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model AdminNote {
+  id               String         @id @default(cuid())
+  bookingRequestId String
+  bookingRequest   BookingRequest @relation(fields: [bookingRequestId], references: [id], onDelete: Cascade)
+  body             String
+  createdAt        DateTime       @default(now())
+}
