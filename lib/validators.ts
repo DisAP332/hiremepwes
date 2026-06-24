@@ -26,10 +26,13 @@ export const bookingRequestSchema = z.object({
   socialLink: z
     .string()
     .trim()
-    .url("Please paste a valid Facebook, Instagram, LinkedIn, or public profile link.")
+    .min(2, "Please add a Facebook, Instagram, or other social handle.")
+    .max(300)
     .refine(
-      (value) => /facebook|instagram|linkedin|tiktok|x\.com|twitter|threads|bsky/i.test(value),
-      "Please add a public social profile link for basic safety verification."
+      (value) =>
+        /^https?:\/\/(www\.)?(facebook|instagram)\.com\/[^\s]+/i.test(value) ||
+        /^Other:\s*\S+/i.test(value),
+      "Please add a Facebook/Instagram handle or choose Other."
     ),
   zipCode: z.string().trim().min(5).max(12),
   addressDetails: optionalTrimmedString,

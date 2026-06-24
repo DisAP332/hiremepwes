@@ -44,6 +44,10 @@ type ReviewRow = {
   createdAt: string;
 };
 
+function getSocialHref(value: string) {
+  return /^https?:\/\//i.test(value) ? value : null;
+}
+
 function mailtoFor(booking: BookingRow) {
   const subject = encodeURIComponent(`HireMePwes request: ${booking.serviceLabel}`);
   const body = encodeURIComponent(
@@ -188,7 +192,11 @@ export function AdminDashboard() {
               <div className="mt-4 flex flex-wrap gap-2">
                 <a className="btn-secondary px-4 py-2 text-sm" href={mailtoFor(booking)}><Mail className="mr-2 size-4" /> Email</a>
                 {booking.phone ? <a className="btn-secondary px-4 py-2 text-sm" href={`sms:${booking.phone}`}><Phone className="mr-2 size-4" /> Text</a> : null}
-                <a className="btn-secondary px-4 py-2 text-sm" href={booking.socialLink} target="_blank" rel="noreferrer"><MessageSquare className="mr-2 size-4" /> Social</a>
+                {getSocialHref(booking.socialLink) ? (
+                  <a className="btn-secondary px-4 py-2 text-sm" href={getSocialHref(booking.socialLink) ?? undefined} target="_blank" rel="noreferrer"><MessageSquare className="mr-2 size-4" /> Social</a>
+                ) : (
+                  <span className="btn-secondary px-4 py-2 text-sm"><MessageSquare className="mr-2 size-4" /> {booking.socialLink}</span>
+                )}
                 <button className="btn-secondary px-4 py-2 text-sm" type="button" onClick={() => copySummary(booking)}>Copy summary</button>
               </div>
 
