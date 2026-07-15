@@ -49,9 +49,11 @@ function getSocialHref(value: string) {
 }
 
 function mailtoFor(booking: BookingRow) {
-  const subject = encodeURIComponent(`HireMePwes request: ${booking.serviceLabel}`);
+  const subject = encodeURIComponent(
+    `HireMePwes request: ${booking.serviceLabel}`,
+  );
   const body = encodeURIComponent(
-    `Hi ${booking.name},\n\nThank you for your ${booking.serviceLabel} request. I reviewed your info and wanted to follow up about timing and details.\n\nPreferred timing you gave: ${booking.preferredDates}\n\n- Serana Robins`
+    `Hi ${booking.name},\n\nThank you for your ${booking.serviceLabel} request. I reviewed your info and wanted to follow up about timing and details.\n\nPreferred timing you gave: ${booking.preferredDates}\n\n- Serana Robins`,
   );
   return `mailto:${booking.email}?subject=${subject}&body=${body}`;
 }
@@ -73,7 +75,9 @@ export function AdminDashboard() {
   const [bookings, setBookings] = useState<BookingRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [notes, setNotes] = useState<Record<string, string>>({});
-  const [message, setMessage] = useState("Paste your ADMIN_SECRET to load requests.");
+  const [message, setMessage] = useState(
+    "Paste your ADMIN_SECRET to load requests.",
+  );
 
   const load = async () => {
     setMessage("Loading...");
@@ -83,11 +87,15 @@ export function AdminDashboard() {
     ]);
 
     if (!bookingRes.ok || !reviewRes.ok) {
-      setMessage("Could not load admin data. Check ADMIN_SECRET and DATABASE_URL.");
+      setMessage(
+        "Could not load admin data. Check ADMIN_SECRET and DATABASE_URL.",
+      );
       return;
     }
 
-    const bookingPayload = (await bookingRes.json()) as { bookings: BookingRow[] };
+    const bookingPayload = (await bookingRes.json()) as {
+      bookings: BookingRow[];
+    };
     const reviewPayload = (await reviewRes.json()) as { reviews: ReviewRow[] };
     setBookings(bookingPayload.bookings);
     setReviews(reviewPayload.reviews);
@@ -115,12 +123,52 @@ export function AdminDashboard() {
       }),
     });
 
-    const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-    setMessage(response.ok ? "Booking updated." : payload?.error ?? "Could not update booking.");
+    const payload = (await response.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    setMessage(
+      response.ok
+        ? "Booking updated."
+        : (payload?.error ?? "Could not update booking."),
+    );
     if (response.ok) {
       setNotes((current) => ({ ...current, [id]: "" }));
     }
     await load();
+  };
+
+  const deleteBooking = async (booking: BookingRow) => {
+    const confirmed = window.confirm(
+      `Delete ${booking.name}'s ${booking.serviceLabel} request?\n\nThis permanently removes it from admin.`,
+    );
+
+    if (!confirmed) return;
+
+    setMessage("Deleting request...");
+
+    const response = await fetch(`/api/admin/booking/${booking.id}`, {
+      method: "DELETE",
+      headers: { "x-admin-secret": secret },
+    });
+
+    const payload = (await response.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+
+    if (!response.ok) {
+      setMessage(payload?.error ?? "Could not delete request.");
+      return;
+    }
+
+    setBookings((current) => current.filter((item) => item.id !== booking.id));
+
+    setNotes((current) => {
+      const next = { ...current };
+      delete next[booking.id];
+      return next;
+    });
+
+    setMessage("Request deleted.");
   };
 
   const setReviewStatus = async (id: string, status: string) => {
@@ -144,13 +192,19 @@ export function AdminDashboard() {
       `ZIP: ${booking.zipCode}`,
       booking.addressDetails ? `Area/details: ${booking.addressDetails}` : null,
       `Preferred: ${booking.preferredDates}`,
-      booking.availabilityNotes ? `Availability notes: ${booking.availabilityNotes}` : null,
+      booking.availabilityNotes
+        ? `Availability notes: ${booking.availabilityNotes}`
+        : null,
       booking.homeSize ? `Space/focus: ${booking.homeSize}` : null,
       booking.deviceType ? `Device: ${booking.deviceType}` : null,
-      booking.aiPrivacyConcern ? `Privacy concern: ${booking.aiPrivacyConcern}` : null,
+      booking.aiPrivacyConcern
+        ? `Privacy concern: ${booking.aiPrivacyConcern}`
+        : null,
       booking.budgetPreference ? `Budget: ${booking.budgetPreference}` : null,
       booking.notes ? `Notes: ${booking.notes}` : null,
-    ].filter(Boolean).join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     await navigator.clipboard.writeText(summary);
     setMessage("Request summary copied.");
@@ -162,15 +216,34 @@ export function AdminDashboard() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="text-2xl font-black text-ink sm:text-3xl">Admin</h1>
-            <p className="mt-2 text-sm text-ink/65">Review requests, contact people manually, update status, and approve reviews.</p>
+            <p className="mt-2 text-sm text-ink/65">
+              Review requests, contact people manually, update status, and
+              approve reviews.
+            </p>
           </div>
-          <button className="btn-secondary w-fit px-4 py-2 text-sm" type="button" onClick={load}>
+          <button
+            className="btn-secondary w-fit px-4 py-2 text-sm"
+            type="button"
+            onClick={load}
+          >
             <RefreshCw className="mr-2 size-4" /> Refresh
           </button>
         </div>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <input className="input-cute" type="password" placeholder="ADMIN_SECRET" value={secret} onChange={(event) => setSecret(event.target.value)} />
-          <button className="btn-primary shrink-0" type="button" onClick={saveSecret}>Load</button>
+          <input
+            className="input-cute"
+            type="password"
+            placeholder="ADMIN_SECRET"
+            value={secret}
+            onChange={(event) => setSecret(event.target.value)}
+          />
+          <button
+            className="btn-primary shrink-0"
+            type="button"
+            onClick={saveSecret}
+          >
+            Load
+          </button>
         </div>
         <p className="mt-3 text-sm font-bold text-ink/60">{message}</p>
       </div>
@@ -182,43 +255,156 @@ export function AdminDashboard() {
             <article key={booking.id} className="card-pop p-4 sm:p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-lg font-black text-ink">{booking.serviceLabel}</p>
-                  <p className="text-sm text-ink/65">{booking.name} · {booking.email} · {booking.zipCode}</p>
-                  {booking.phone ? <p className="text-sm text-ink/65">Phone: {booking.phone}</p> : null}
+                  <p className="text-lg font-black text-ink">
+                    {booking.serviceLabel}
+                  </p>
+                  <p className="text-sm text-ink/65">
+                    {booking.name} · {booking.email} · {booking.zipCode}
+                  </p>
+                  {booking.phone ? (
+                    <p className="text-sm text-ink/65">
+                      Phone: {booking.phone}
+                    </p>
+                  ) : null}
                 </div>
-                <span className="rounded-full bg-lemon-100 px-3 py-1 text-xs font-black text-ink">{statusLabel(booking.status)}</span>
+                <span className="rounded-full bg-lemon-100 px-3 py-1 text-xs font-black text-ink">
+                  {statusLabel(booking.status)}
+                </span>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                <a className="btn-secondary px-4 py-2 text-sm" href={mailtoFor(booking)}><Mail className="mr-2 size-4" /> Email</a>
-                {booking.phone ? <a className="btn-secondary px-4 py-2 text-sm" href={`sms:${booking.phone}`}><Phone className="mr-2 size-4" /> Text</a> : null}
+                <a
+                  className="btn-secondary px-4 py-2 text-sm"
+                  href={mailtoFor(booking)}
+                >
+                  <Mail className="mr-2 size-4" /> Email
+                </a>
+                {booking.phone ? (
+                  <a
+                    className="btn-secondary px-4 py-2 text-sm"
+                    href={`sms:${booking.phone}`}
+                  >
+                    <Phone className="mr-2 size-4" /> Text
+                  </a>
+                ) : null}
                 {getSocialHref(booking.socialLink) ? (
-                  <a className="btn-secondary px-4 py-2 text-sm" href={getSocialHref(booking.socialLink) ?? undefined} target="_blank" rel="noreferrer"><MessageSquare className="mr-2 size-4" /> Social</a>
+                  <a
+                    className="btn-secondary px-4 py-2 text-sm"
+                    href={getSocialHref(booking.socialLink) ?? undefined}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageSquare className="mr-2 size-4" /> Social
+                  </a>
                 ) : (
-                  <span className="btn-secondary px-4 py-2 text-sm"><MessageSquare className="mr-2 size-4" /> {booking.socialLink}</span>
+                  <span className="btn-secondary px-4 py-2 text-sm">
+                    <MessageSquare className="mr-2 size-4" />{" "}
+                    {booking.socialLink}
+                  </span>
                 )}
-                <button className="btn-secondary px-4 py-2 text-sm" type="button" onClick={() => copySummary(booking)}>Copy summary</button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  type="button"
+                  onClick={() => copySummary(booking)}
+                >
+                  Copy summary
+                </button>
               </div>
 
               <div className="mt-4 rounded-2xl bg-white/70 p-4 text-sm leading-6 text-ink/70">
-                <p><strong>Preferred:</strong> {booking.preferredDates}</p>
-                {booking.availabilityNotes ? <p><strong>Availability:</strong> {booking.availabilityNotes}</p> : null}
-                {booking.addressDetails ? <p><strong>Area/details:</strong> {booking.addressDetails}</p> : null}
-                {booking.homeSize ? <p><strong>Space/focus:</strong> {booking.homeSize}</p> : null}
-                {booking.intensity ? <p><strong>Intensity:</strong> {booking.intensity}/5</p> : null}
-                {booking.hasSupplies ? <p><strong>Supplies:</strong> {booking.hasSupplies}</p> : null}
-                {booking.suppliesNote ? <p><strong>Supply notes:</strong> {booking.suppliesNote}</p> : null}
-                {booking.deviceType ? <p><strong>Device:</strong> {booking.deviceType}</p> : null}
-                {booking.aiPrivacyConcern ? <p><strong>AI/privacy:</strong> {booking.aiPrivacyConcern}</p> : null}
-                {booking.budgetPreference ? <p><strong>Budget:</strong> {booking.budgetPreference}</p> : null}
-                {booking.notes ? <p><strong>Notes:</strong> {booking.notes}</p> : null}
-                {booking.photoUrls.length ? <p><strong>Photos:</strong> {booking.photoUrls.length} uploaded</p> : null}
+                <p>
+                  <strong>Preferred:</strong> {booking.preferredDates}
+                </p>
+                {booking.availabilityNotes ? (
+                  <p>
+                    <strong>Availability:</strong> {booking.availabilityNotes}
+                  </p>
+                ) : null}
+                {booking.addressDetails ? (
+                  <p>
+                    <strong>Area/details:</strong> {booking.addressDetails}
+                  </p>
+                ) : null}
+                {booking.homeSize ? (
+                  <p>
+                    <strong>Space/focus:</strong> {booking.homeSize}
+                  </p>
+                ) : null}
+                {booking.intensity ? (
+                  <p>
+                    <strong>Intensity:</strong> {booking.intensity}/5
+                  </p>
+                ) : null}
+                {booking.hasSupplies ? (
+                  <p>
+                    <strong>Supplies:</strong> {booking.hasSupplies}
+                  </p>
+                ) : null}
+                {booking.suppliesNote ? (
+                  <p>
+                    <strong>Supply notes:</strong> {booking.suppliesNote}
+                  </p>
+                ) : null}
+                {booking.deviceType ? (
+                  <p>
+                    <strong>Device:</strong> {booking.deviceType}
+                  </p>
+                ) : null}
+                {booking.aiPrivacyConcern ? (
+                  <p>
+                    <strong>AI/privacy:</strong> {booking.aiPrivacyConcern}
+                  </p>
+                ) : null}
+                {booking.budgetPreference ? (
+                  <p>
+                    <strong>Budget:</strong> {booking.budgetPreference}
+                  </p>
+                ) : null}
+                {booking.notes ? (
+                  <p>
+                    <strong>Notes:</strong> {booking.notes}
+                  </p>
+                ) : null}
+                {booking.photoUrls.length ? (
+                  <div className="mt-3">
+                    <p>
+                      <strong>Photos:</strong> {booking.photoUrls.length}{" "}
+                      uploaded
+                    </p>
+
+                    <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      {booking.photoUrls.map((url, index) => (
+                        <a
+                          key={`${booking.id}-photo-${index}`}
+                          href={url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group overflow-hidden rounded-2xl border border-white/80 bg-white/80 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                          title={`Open photo ${index + 1}`}
+                        >
+                          <img
+                            src={url}
+                            alt={`${booking.name} uploaded photo ${index + 1}`}
+                            className="aspect-square w-full object-cover transition group-hover:scale-105"
+                          />
+                          <span className="block px-2 py-1 text-center text-xs font-black text-ink/60">
+                            Open photo {index + 1}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
               </div>
 
               {booking.adminNotes?.length ? (
                 <div className="mt-3 rounded-2xl bg-lavender-100/60 p-4 text-sm leading-6 text-ink/70">
                   <p className="font-black text-ink">Private notes</p>
-                  {booking.adminNotes.slice(-3).map((note) => <p key={note.id} className="mt-2">• {note.body}</p>)}
+                  {booking.adminNotes.slice(-3).map((note) => (
+                    <p key={note.id} className="mt-2">
+                      • {note.body}
+                    </p>
+                  ))}
                 </div>
               ) : null}
 
@@ -228,20 +414,61 @@ export function AdminDashboard() {
                   className="input-cute min-h-20"
                   placeholder="Example: replied by text, waiting on photos, quoted $120..."
                   value={notes[booking.id] ?? ""}
-                  onChange={(event) => setNotes((current) => ({ ...current, [booking.id]: event.target.value }))}
+                  onChange={(event) =>
+                    setNotes((current) => ({
+                      ...current,
+                      [booking.id]: event.target.value,
+                    }))
+                  }
                 />
               </label>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                <button className="btn-primary px-4 py-2 text-sm" onClick={() => setBookingStatus(booking.id, "accepted")}>Accept</button>
-                <button className="btn-secondary px-4 py-2 text-sm" onClick={() => setBookingStatus(booking.id, "needs_followup")}>Follow up</button>
-                <button className="btn-secondary px-4 py-2 text-sm" onClick={() => setBookingStatus(booking.id, "declined")}>Decline</button>
-                <button className="btn-secondary px-4 py-2 text-sm" onClick={() => setBookingStatus(booking.id, "completed")}>Complete</button>
-                <button className="btn-secondary px-4 py-2 text-sm" onClick={() => setBookingStatus(booking.id, "cancelled")}>Cancel</button>
+                <button
+                  className="btn-primary px-4 py-2 text-sm"
+                  onClick={() => setBookingStatus(booking.id, "accepted")}
+                >
+                  Accept
+                </button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  onClick={() => setBookingStatus(booking.id, "needs_followup")}
+                >
+                  Follow up
+                </button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  onClick={() => setBookingStatus(booking.id, "declined")}
+                >
+                  Decline
+                </button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  onClick={() => setBookingStatus(booking.id, "completed")}
+                >
+                  Complete
+                </button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  onClick={() => setBookingStatus(booking.id, "cancelled")}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="rounded-full bg-rose-100 px-4 py-2 text-sm font-black text-rose-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-rose-200"
+                  type="button"
+                  onClick={() => deleteBooking(booking)}
+                >
+                  Delete
+                </button>
               </div>
             </article>
           ))}
-          {!bookings.length ? <p className="rounded-3xl bg-white/60 p-5 text-sm font-bold text-ink/60">No requests loaded.</p> : null}
+          {!bookings.length ? (
+            <p className="rounded-3xl bg-white/60 p-5 text-sm font-bold text-ink/60">
+              No requests loaded.
+            </p>
+          ) : null}
         </div>
 
         <div className="space-y-4">
@@ -250,19 +477,39 @@ export function AdminDashboard() {
             <article key={review.id} className="card-pop p-4 sm:p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-black text-ink">{review.initials} · {"★".repeat(review.rating)}</p>
+                  <p className="font-black text-ink">
+                    {review.initials} · {"★".repeat(review.rating)}
+                  </p>
                   <p className="text-sm text-ink/60">{review.serviceUsed}</p>
                 </div>
-                <span className="rounded-full bg-lavender-100 px-3 py-1 text-xs font-black text-ink">{review.status}</span>
+                <span className="rounded-full bg-lavender-100 px-3 py-1 text-xs font-black text-ink">
+                  {review.status}
+                </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-ink/70">“{review.body}”</p>
+              <p className="mt-3 text-sm leading-6 text-ink/70">
+                “{review.body}”
+              </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <button className="btn-primary px-4 py-2 text-sm" onClick={() => setReviewStatus(review.id, "approved")}>Approve</button>
-                <button className="btn-secondary px-4 py-2 text-sm" onClick={() => setReviewStatus(review.id, "hidden")}>Hide</button>
+                <button
+                  className="btn-primary px-4 py-2 text-sm"
+                  onClick={() => setReviewStatus(review.id, "approved")}
+                >
+                  Approve
+                </button>
+                <button
+                  className="btn-secondary px-4 py-2 text-sm"
+                  onClick={() => setReviewStatus(review.id, "hidden")}
+                >
+                  Hide
+                </button>
               </div>
             </article>
           ))}
-          {!reviews.length ? <p className="rounded-3xl bg-white/60 p-5 text-sm font-bold text-ink/60">No reviews loaded.</p> : null}
+          {!reviews.length ? (
+            <p className="rounded-3xl bg-white/60 p-5 text-sm font-bold text-ink/60">
+              No reviews loaded.
+            </p>
+          ) : null}
         </div>
       </div>
     </section>
