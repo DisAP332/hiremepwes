@@ -1,37 +1,123 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { siteConfig } from "@/data/site";
+import type { CSSProperties } from "react";
+import type { IconType } from "react-icons";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
+type SocialLink = {
+  label: string;
+  href: string;
+  Icon: IconType;
+  className: string;
+  glowClassName: string;
+  style: CSSProperties;
+};
+
+const socialLinks: SocialLink[] = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/seranacleans",
+    Icon: FaInstagram,
+    className: "text-white",
+    glowClassName: "bg-fuchsia-300/50",
+    style: {
+      background:
+        "radial-gradient(circle at 30% 110%, #feda75 0%, #fa7e1e 24%, #d62976 48%, #962fbf 72%, #4f5bd5 100%)",
+    },
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/people/Serana-Cleans/61591619771069/",
+    Icon: FaFacebookF,
+    className: "bg-[#1877F2] text-white",
+    glowClassName: "bg-blue-300/50",
+    style: {},
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/serana-robinson-135205251/?isSelfProfile=true",
+    Icon: FaLinkedinIn,
+    className: "bg-[#0A66C2] text-white",
+    glowClassName: "bg-sky-300/50",
+    style: {},
+  },
+  {
+    label: "Email",
+    href: "mailto:serana.robins1998@gmail.com",
+    Icon: MdEmail,
+    className: "bg-white text-[#EA4335]",
+    glowClassName: "bg-red-300/50",
+    style: {},
+  },
+];
+
+function animatedStyle(style: CSSProperties, index: number) {
+  return {
+    ...style,
+    "--social-delay": `${index * 0.16}s`,
+  } as CSSProperties;
+}
 
 export function Footer() {
-  const pathname = usePathname();
-
-  if (pathname === "/") return null;
-
   return (
-    <footer className="border-t border-white/70 bg-white/55 backdrop-blur-xl">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-3 lg:px-8">
-        <div>
-          <p className="text-xl font-black text-ink">✨ {siteConfig.name}</p>
-          <p className="mt-2 text-sm leading-6 text-ink/65">
-            Local help from {siteConfig.owner}: cleaning, tech help, AI privacy, and handmade masks.
-          </p>
-        </div>
-        <div>
-          <p className="font-black text-ink">Area</p>
-          <p className="mt-2 text-sm text-ink/65">{siteConfig.serviceArea}</p>
-          <p className="mt-1 text-sm text-ink/65">{siteConfig.includedRadius}. {siteConfig.extraTravel}</p>
-        </div>
-        <div>
-          <p className="font-black text-ink">Contact</p>
-          <div className="mt-2 space-y-1 text-sm text-ink/65">
-            <p>Email: <a className="font-bold text-ink underline decoration-raspberry-200 decoration-2 underline-offset-4" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
-            {siteConfig.phone ? <p>Phone: <a className="font-bold text-ink" href={`tel:${siteConfig.phone}`}>{siteConfig.phone}</a></p> : null}
-            <p><Link className="font-bold text-ink underline decoration-aqua-300 decoration-2 underline-offset-4" href="/privacy">Privacy note</Link></p>
-          </div>
-        </div>
+    <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-white/70 bg-white/80 px-3 py-3 shadow-[0_-10px_30px_rgba(80,40,120,0.08)] backdrop-blur-xl sm:py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 sm:gap-4">
+        {socialLinks.map(
+          ({ label, href, Icon, className, glowClassName, style }, index) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              title={label}
+              target={href.startsWith("mailto:") ? undefined : "_blank"}
+              rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
+              className={`social-icon group relative grid h-11 w-11 place-items-center rounded-2xl shadow-lg shadow-ink/10 transition duration-300 hover:-translate-y-1 hover:rotate-3 hover:scale-110 focus:outline-none focus-visible:ring-4 focus-visible:ring-lavender-300 sm:h-12 sm:w-12 ${className}`}
+              style={animatedStyle(style, index)}
+            >
+              <span
+                className={`absolute inset-0 -z-10 rounded-2xl opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100 ${glowClassName}`}
+              />
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
+            </a>
+          ),
+        )}
       </div>
+
+      <style>{`
+        .social-icon {
+          animation: social-footer-float 4.8s ease-in-out infinite;
+          animation-delay: var(--social-delay);
+        }
+
+        .social-icon:hover svg {
+          animation: social-footer-wiggle 0.55s ease-in-out both;
+        }
+
+        @keyframes social-footer-float {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-4px) rotate(1.5deg);
+          }
+        }
+
+        @keyframes social-footer-wiggle {
+          0%, 100% {
+            transform: rotate(0deg) scale(1);
+          }
+          25% {
+            transform: rotate(-10deg) scale(1.08);
+          }
+          50% {
+            transform: rotate(10deg) scale(1.1);
+          }
+          75% {
+            transform: rotate(-5deg) scale(1.06);
+          }
+        }
+      `}</style>
     </footer>
   );
 }

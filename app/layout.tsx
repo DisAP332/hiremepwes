@@ -8,21 +8,30 @@ import { SiteNav } from "@/components/SiteNav";
 import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Serana's Cleaning, Tech, AI Privacy & Crafts`,
   description:
     "Bright local help from Serana in Cincinnati and surrounding areas: cleaning resets, PC/phone help, AI data protection checkups, and handmade masks/crafts.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://hiremepwes.com"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://hiremepwes.com",
+  ),
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <Providers>
-          <div className="relative min-h-screen overflow-hidden">
+          <div className="relative min-h-screen overflow-x-hidden">
             <div className="bubble-field" aria-hidden="true">
               {Array.from({ length: 16 }).map((_, index) => (
                 <span
@@ -38,12 +47,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 />
               ))}
             </div>
-            <div className="relative z-10">
+
+            <div className="relative z-10 flex min-h-screen flex-col pb-24 sm:pb-28">
               <SiteNav />
-              {children}
+              <main className="flex-1">{children}</main>
               <Footer />
             </div>
           </div>
+
           <Analytics />
         </Providers>
       </body>

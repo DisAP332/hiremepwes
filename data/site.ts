@@ -4,13 +4,17 @@ export const siteConfig = {
   name: "HireMePwes",
   domain: "hiremepwes.com",
   owner: "Serana Robins",
-  email: process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "serana.robins1998@gmail.com",
-  phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "",
-  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
-  facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "",
+  email:
+    process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "serana.robins1998@gmail.com",
+  phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "513-513-0522",
+  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "instagram.com/sunrahnuh",
+  facebook:
+    process.env.NEXT_PUBLIC_FACEBOOK_URL ??
+    "www.facebook.com/people/Serana-Cleans/61591619771069/",
   serviceArea: "Cincinnati and surrounding areas",
   includedRadius: "Within about 10 miles",
-  extraTravel: "Extra travel may include a small fee, confirmed before scheduling.",
+  extraTravel:
+    "Extra travel may include a small fee, confirmed before scheduling.",
 };
 
 export type ServiceCard = {
@@ -30,16 +34,26 @@ export type ServiceCard = {
 export const serviceCards: ServiceCard[] = [
   {
     category: "cleaning_reset",
-    title: "Cleaning & Reset Service",
-    shortTitle: "Cleaning Reset",
+    title: "Cleaning and Home Reset Service",
+    shortTitle: "Cleaning Service",
     emoji: "🫧",
     tagline: "A fresh start for your space.",
     questPrompt: "Tell me what needs cleaned or reset.",
     description:
-      "Kitchen, bathroom, floors, surfaces, trash, light organization, and focused home resets. Photos help with estimates but are optional.",
-    includes: ["Standard cleans", "Deep resets", "Kitchen/bath focus", "Light organizing", "Pet-aware cleaning"],
-    storySteps: ["Pick the area", "Share the details", "Serana confirms before scheduling"],
-    startingAt: "$100 minimum / $30 per hour",
+      "Kitchen, bathroom, floors, surfaces, trash, organization, and full home resets. Photos help with estimates but are optional.",
+    includes: [
+      "Standard cleans",
+      "Deep resets",
+      "Kitchen/bath focus",
+      "organizing",
+      "Pet-friendly cleaning",
+    ],
+    storySteps: [
+      "Pick the area",
+      "Share the details",
+      "Serana confirms before scheduling",
+    ],
+    startingAt: "$100 minimum",
     accent: "from-coral-300 to-lemon-300",
   },
   {
@@ -51,9 +65,19 @@ export const serviceCards: ServiceCard[] = [
     questPrompt: "Tell me what the device is doing.",
     description:
       "Computer cleanup, basic troubleshooting, phone setup, software help, peripheral setup, slow device checks, and practical repair guidance.",
-    includes: ["Slow PC cleanup", "Phone setup", "Wi‑Fi/device help", "Basic diagnosis", "Upgrade guidance"],
-    storySteps: ["Name the device", "Describe the issue", "Confirm a help session"],
-    startingAt: "$100 minimum / $30 per hour",
+    includes: [
+      "Slow PC cleanup",
+      "Phone setup",
+      "Wi‑Fi/device help",
+      "Basic diagnosis",
+      "Upgrade guidance",
+    ],
+    storySteps: [
+      "Name the device",
+      "Describe the issue",
+      "Confirm a help session",
+    ],
+    startingAt: "$100 minimum",
     accent: "from-aqua-300 to-sky-300",
   },
   {
@@ -65,9 +89,19 @@ export const serviceCards: ServiceCard[] = [
     questPrompt: "Tell me what you want to protect.",
     description:
       "A practical privacy checkup for AI app settings, account permissions, file metadata, scam risk, safer sharing habits, and cleanup checklists.",
-    includes: ["AI privacy settings", "Account permission review", "Metadata basics", "Scam-risk check", "Safer sharing plan"],
-    storySteps: ["Choose the concern", "Share the tools involved", "Get a practical checklist"],
-    startingAt: "$100 minimum / $30 per hour",
+    includes: [
+      "AI privacy settings",
+      "Account permission review",
+      "Metadata basics",
+      "Scam-risk check",
+      "Safer sharing plan",
+    ],
+    storySteps: [
+      "Choose the concern",
+      "Share the tools involved",
+      "Get a practical checklist",
+    ],
+    startingAt: "$100 minimum",
     accent: "from-lavender-300 to-fuchsia-300",
   },
   {
@@ -79,8 +113,18 @@ export const serviceCards: ServiceCard[] = [
     questPrompt: "Tell me the piece you have in mind.",
     description:
       "Handmade masks and craft pieces for custom colors, decorative pieces, costume looks, gifts, and small commissions.",
-    includes: ["Custom masks", "Decorative pieces", "Color matching", "Gift ideas", "Commission requests"],
-    storySteps: ["Describe the idea", "Share colors and timing", "Serana sends a quote"],
+    includes: [
+      "Custom masks",
+      "Decorative pieces",
+      "Color matching",
+      "Gift ideas",
+      "Commission requests",
+    ],
+    storySteps: [
+      "Describe the idea",
+      "Share colors and timing",
+      "Serana sends a quote",
+    ],
     startingAt: "Quoted per project",
     accent: "from-raspberry-300 to-lavender-300",
   },
@@ -91,19 +135,33 @@ export const pricing = [
     name: "Minimum Visit",
     price: "$100",
     detail: "Best for small resets, initial troubleshooting, or focused help.",
-    bullets: ["Covers the first visit minimum", "Clear scope before starting", "Good for same-week requests"],
+    bullets: [
+      "Covers the first visit minimum",
+      "Clear scope before starting",
+      "Good for same-week requests",
+    ],
   },
   {
     name: "Flexible Hourly",
-    price: "$30/hr",
-    detail: "Use this when the job is hard to predict or mixed between services.",
-    bullets: ["Cleaning, tech, organizing, or AI privacy help", "You approve the plan first", "Simple and transparent"],
+    price: "$40/hr",
+    detail:
+      "Use this when the job is hard to predict or mixed between services.",
+    bullets: [
+      "Cleaning, tech, organizing, or AI privacy help",
+      "You approve the plan first",
+      "Simple and transparent",
+    ],
   },
   {
     name: "Custom Quote",
     price: "By request",
-    detail: "For deep resets, craft commissions, larger homes, or multi-step tech projects.",
-    bullets: ["Photos help but are optional", "Travel fee may apply", "No surprise booking without confirmation"],
+    detail:
+      "For deep resets, craft commissions, larger homes, or multi-step tech projects.",
+    bullets: [
+      "Photos help but are optional",
+      "Travel fee may apply",
+      "No surprise booking without confirmation",
+    ],
   },
 ];
 
@@ -128,7 +186,8 @@ export const simplePath = [
 export const faqs = [
   {
     question: "Do I need to make an account?",
-    answer: "No. Just send a request form. Serana reviews it and confirms, declines, or suggests a different time.",
+    answer:
+      "No. Just send a request form. Serana reviews it and confirms, declines, or suggests a different time.",
   },
   {
     question: "Why do you ask for a social profile?",

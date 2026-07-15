@@ -27,6 +27,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
+    "react-icons": "^5.7.0",
     "react-redux": "latest",
     "resend": "latest",
     "zod": "latest"
