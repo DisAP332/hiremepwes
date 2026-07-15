@@ -14,16 +14,6 @@ function safeFileName(name: string) {
 
 export async function POST(request: Request) {
   try {
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return Response.json(
-        {
-          error:
-            "Photo uploads need BLOB_READ_WRITE_TOKEN. Add a Vercel Blob token to .env.local and Vercel environment variables.",
-        },
-        { status: 500 },
-      );
-    }
-
     const formData = await request.formData();
     const file = formData.get("file");
 
@@ -48,15 +38,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const extension = file.name.includes(".")
-      ? file.name.split(".").pop()
-      : "jpg";
-    const filename = safeFileName(file.name || `photo.${extension}`);
+    const fallbackName = `photo-${crypto.randomUUID()}.jpg`;
+    const filename = safeFileName(file.name || fallbackName);
     const pathname = `booking-photos/${Date.now()}-${crypto.randomUUID()}-${filename}`;
 
     const blob = await put(pathname, file, {
       access: "public",
       contentType: file.type,
+      addRandomSuffix: true,
     });
 
     return Response.json({ url: blob.url });

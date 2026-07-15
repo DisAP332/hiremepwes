@@ -1,7 +1,8 @@
 export async function GET() {
   const hasBlob =
     Boolean(process.env.BLOB_READ_WRITE_TOKEN) ||
-    Boolean(process.env.BLOB_READ_WRITE_TOKEN_STORE_ID);
+    Boolean(process.env.BLOB_READ_WRITE_TOKEN_STORE_ID) ||
+    Boolean(process.env.BLOB_STORE_ID);
 
   return Response.json({
     ok: true,
