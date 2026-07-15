@@ -20,21 +20,36 @@ export default function Home() {
           </div>
 
           <h1 className="mt-2 text-[2rem] font-black leading-[0.92] tracking-tight text-ink sm:mt-5 sm:text-6xl lg:text-7xl">
-            Help from <span className="bg-gradient-to-r from-raspberry-300 via-coral-300 to-aqua-300 bg-clip-text text-transparent">Serana Robins.</span>
+            How can I help{" "}
+            <span className="bg-gradient-to-r from-raspberry-300 via-coral-300 to-aqua-300 bg-clip-text text-transparent">
+              You.
+            </span>
           </h1>
 
           <p className="mt-2 max-w-xl text-[0.92rem] font-bold leading-5 text-ink/65 sm:mt-3 sm:text-base sm:leading-7">
-            Cleaning, repairs, AI privacy, and masks around Cincinnati.
+            Cleaning, Tech repairs, Anti AI defense, and cosplay crafts
           </p>
 
           <div className="mt-3 grid grid-cols-3 gap-2 text-[0.66rem] font-black text-ink/70 sm:mt-6 sm:gap-3 sm:text-sm">
-            <div className="rounded-2xl bg-lemon-100/85 p-2 sm:p-3"><BadgeCheck className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />$100 min</div>
-            <div className="rounded-2xl bg-aqua-100/85 p-2 sm:p-3"><Sparkles className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />$30/hr</div>
-            <div className="rounded-2xl bg-lavender-100/85 p-2 sm:p-3"><MapPin className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />10 miles</div>
+            <div className="rounded-2xl bg-lemon-100/85 p-2 sm:p-3">
+              <BadgeCheck className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />
+              $100 min
+            </div>
+            <div className="rounded-2xl bg-aqua-100/85 p-2 sm:p-3">
+              <Sparkles className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />{" "}
+              40/hr
+            </div>
+            <div className="rounded-2xl bg-lavender-100/85 p-2 sm:p-3">
+              <MapPin className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />
+              10 miles from cinci / kenton
+            </div>
           </div>
         </article>
 
-        <section aria-label="Choose a service" className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+        <section
+          aria-label="Choose a service"
+          className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4"
+        >
           {serviceCards.map((service) => (
             <Link
               key={service.category}
@@ -43,11 +58,17 @@ export default function Home() {
             >
               <div className="flex h-full min-h-[6.8rem] flex-col justify-between rounded-[1.15rem] border border-white/70 bg-white/86 p-2.5 backdrop-blur sm:min-h-[11rem] sm:rounded-[1.75rem] sm:p-5 lg:min-h-[13rem]">
                 <div>
-                  <span className={`grid size-10 place-items-center rounded-[0.9rem] bg-gradient-to-br ${service.accent} text-2xl shadow-sm sm:size-16 sm:rounded-[1.35rem] sm:text-4xl`}>
+                  <span
+                    className={`grid size-10 place-items-center rounded-[0.9rem] bg-gradient-to-br ${service.accent} text-2xl shadow-sm sm:size-16 sm:rounded-[1.35rem] sm:text-4xl`}
+                  >
                     {service.emoji}
                   </span>
-                  <h2 className="mt-2 text-[0.95rem] font-black leading-tight text-ink sm:mt-3 sm:text-2xl">{service.shortTitle}</h2>
-                  <p className="mt-1 hidden text-xs font-bold leading-4 text-ink/55 sm:block sm:text-sm sm:leading-5">{serviceLine[service.category]}</p>
+                  <h2 className="mt-2 text-[0.95rem] font-black leading-tight text-ink sm:mt-3 sm:text-2xl">
+                    {service.shortTitle}
+                  </h2>
+                  <p className="mt-1 hidden text-xs font-bold leading-4 text-ink/55 sm:block sm:text-sm sm:leading-5">
+                    {serviceLine[service.category]}
+                  </p>
                 </div>
                 <span className="mt-2 inline-flex items-center justify-center rounded-full bg-ink px-3 py-1.5 text-[0.72rem] font-black text-white sm:mt-3 sm:py-2 sm:text-sm">
                   Start →

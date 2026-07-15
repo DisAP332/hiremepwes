@@ -19,7 +19,7 @@
     "@prisma/client": "6.19.3",
     "@reduxjs/toolkit": "latest",
     "@vercel/analytics": "latest",
-    "@vercel/blob": "latest",
+    "@vercel/blob": "^2.6.1",
     "date-fns": "latest",
     "framer-motion": "latest",
     "lucide-react": "latest",
