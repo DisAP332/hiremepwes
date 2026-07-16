@@ -30,6 +30,23 @@ enum ReviewStatus {
   hidden
 }
 
+enum ScheduleBidStatus {
+  pending
+  accepted
+  declined
+  cancelled
+}
+
+enum ScheduleEventKind {
+  session
+  block
+}
+
+enum ScheduleEventSource {
+  quick_bid
+  manual
+}
+
 model BookingRequest {
   id                String          @id @default(cuid())
   status            BookingStatus   @default(pending)
@@ -62,14 +79,14 @@ model BookingRequest {
 }
 
 model ContactMessage {
-  id              String          @id @default(cuid())
+  id              String           @id @default(cuid())
   serviceCategory ServiceCategory?
   name            String
   email           String
   phone           String?
   socialLink      String?
   message         String
-  createdAt       DateTime        @default(now())
+  createdAt       DateTime         @default(now())
 }
 
 model Review {
@@ -89,4 +106,42 @@ model AdminNote {
   bookingRequest   BookingRequest @relation(fields: [bookingRequestId], references: [id], onDelete: Cascade)
   body             String
   createdAt        DateTime       @default(now())
+}
+
+model ScheduleBid {
+  id              String            @id @default(cuid())
+  status          ScheduleBidStatus @default(pending)
+  serviceCategory ServiceCategory
+  phone           String
+  dateKey         String
+  startsAt        DateTime
+  endsAt          DateTime
+  acceptedEvent   ScheduleEvent?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([phone, startsAt])
+  @@index([dateKey, status])
+  @@index([startsAt, status])
+}
+
+model ScheduleEvent {
+  id                     String              @id @default(cuid())
+  kind                   ScheduleEventKind   @default(session)
+  source                 ScheduleEventSource
+  serviceCategory        ServiceCategory?
+  phone                  String?
+  publicLabel            String?
+  adminNote              String?
+  dateKey                String
+  startsAt               DateTime
+  endsAt                 DateTime
+  countsTowardDailyLimit Boolean             @default(true)
+  bidId                  String?             @unique
+  bid                    ScheduleBid?        @relation(fields: [bidId], references: [id], onDelete: SetNull)
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  @@index([dateKey, countsTowardDailyLimit])
+  @@index([startsAt, endsAt])
 }
