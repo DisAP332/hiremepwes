@@ -8,7 +8,19 @@ export const serviceCategorySchema = z.enum([
   "custom_help",
 ]);
 
-export type ServiceCategory = z.infer<typeof serviceCategorySchema>;
+export type ServiceCategory =
+  | "cleaning_reset"
+  | "pc_phone_repair"
+  | "ai_data_protection"
+  | "masks_crafts"
+  | "custom_help";
+
+export const quickBidServiceCategorySchema = z.enum([
+  "cleaning_reset",
+  "pc_phone_repair",
+  "ai_data_protection",
+  "masks_crafts",
+]);
 
 const optionalTrimmedString = z
   .string()
@@ -16,6 +28,22 @@ const optionalTrimmedString = z
   .max(2000)
   .optional()
   .or(z.literal(""));
+
+const dateKeySchema = z
+  .string()
+  .trim()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Choose a valid date.");
+
+const scheduleStartHourSchema = z.coerce
+  .number()
+  .int()
+  .refine((value) => [9, 13, 17].includes(value), "Choose a valid time slot.");
+
+const phoneNumberSchema = z
+  .string()
+  .trim()
+  .min(10, "Please add a valid phone number.")
+  .max(30, "Please add a valid phone number.");
 
 export const bookingRequestSchema = z.object({
   serviceCategory: serviceCategorySchema,
@@ -32,7 +60,7 @@ export const bookingRequestSchema = z.object({
       (value) =>
         /^https?:\/\/(www\.)?(facebook|instagram)\.com\/[^\s]+/i.test(value) ||
         /^Other:\s*\S+/i.test(value),
-      "Please add a Facebook/Instagram handle or choose Other."
+      "Please add a Facebook/Instagram handle or choose Other.",
     ),
   zipCode: z.string().trim().min(5).max(12),
   addressDetails: optionalTrimmedString,
@@ -51,6 +79,40 @@ export const bookingRequestSchema = z.object({
 });
 
 export type BookingRequestInput = z.infer<typeof bookingRequestSchema>;
+
+export const quickBidSchema = z.object({
+  serviceCategory: quickBidServiceCategorySchema,
+  phone: phoneNumberSchema,
+  dateKey: dateKeySchema,
+  startHour: scheduleStartHourSchema,
+  website: z.string().max(0).optional(),
+});
+
+export type QuickBidInput = z.infer<typeof quickBidSchema>;
+
+export const adminScheduleBidActionSchema = z.object({
+  action: z.enum(["accept", "decline"]),
+});
+
+export const adminScheduleEventSchema = z
+  .object({
+    kind: z.enum(["session", "block"]),
+    serviceCategory: quickBidServiceCategorySchema.optional(),
+    phone: optionalTrimmedString,
+    dateKey: dateKeySchema,
+    startHour: scheduleStartHourSchema,
+    publicLabel: z.string().trim().max(80).optional().or(z.literal("")),
+    adminNote: optionalTrimmedString,
+  })
+  .superRefine((value, context) => {
+    if (value.kind === "session" && !value.serviceCategory) {
+      context.addIssue({
+        code: "custom",
+        path: ["serviceCategory"],
+        message: "Choose a service for a work session.",
+      });
+    }
+  });
 
 export const contactMessageSchema = z.object({
   serviceCategory: serviceCategorySchema.optional(),
@@ -73,7 +135,16 @@ export const reviewSchema = z.object({
 export type ReviewInput = z.infer<typeof reviewSchema>;
 
 export const adminStatusSchema = z.object({
-  status: z.enum(["pending", "accepted", "declined", "needs_followup", "completed", "cancelled", "hidden", "approved"]),
+  status: z.enum([
+    "pending",
+    "accepted",
+    "declined",
+    "needs_followup",
+    "completed",
+    "cancelled",
+    "hidden",
+    "approved",
+  ]),
   adminNote: optionalTrimmedString,
   scheduledStart: optionalTrimmedString,
   scheduledEnd: optionalTrimmedString,
