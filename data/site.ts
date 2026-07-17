@@ -37,8 +37,8 @@ export const serviceCards: ServiceCard[] = [
     title: "Cleaning and Home Reset Service",
     shortTitle: "Cleaning Service",
     emoji: "🫧",
-    tagline: "A fresh start for your space.",
-    questPrompt: "Tell me what needs cleaned or reset.",
+    tagline: "A fresh start for your space / home.",
+    questPrompt: "First sessions are deep cleans, then we maintain(:",
     description:
       "Kitchen, bathroom, floors, surfaces, trash, organization, and full home resets. Photos help with estimates but are optional.",
     includes: [
@@ -51,7 +51,7 @@ export const serviceCards: ServiceCard[] = [
     storySteps: [
       "Pick the area",
       "Share the details",
-      "Serana confirms before scheduling",
+      "I will confirm a time and plan!",
     ],
     startingAt: "$100 minimum",
     accent: "from-coral-300 to-lemon-300",
@@ -61,7 +61,7 @@ export const serviceCards: ServiceCard[] = [
     title: "PC & Phone Repair Help",
     shortTitle: "PC / Phone Repair",
     emoji: "💻",
-    tagline: "Help with phones, computers, and setup.",
+    tagline: "Help with phones, computers, and software.",
     questPrompt: "Tell me what the device is doing.",
     description:
       "Computer cleanup, basic troubleshooting, phone setup, software help, peripheral setup, slow device checks, and practical repair guidance.",
@@ -75,7 +75,7 @@ export const serviceCards: ServiceCard[] = [
     storySteps: [
       "Name the device",
       "Describe the issue",
-      "Confirm a help session",
+      "Confirm a time I can help you resolve your problem.",
     ],
     startingAt: "$100 minimum",
     accent: "from-aqua-300 to-sky-300",
@@ -98,8 +98,8 @@ export const serviceCards: ServiceCard[] = [
     ],
     storySteps: [
       "Choose the concern",
-      "Share the tools involved",
-      "Get a practical checklist",
+      "Share the areas you feel most vulnerable",
+      "Get a practical pathway to minimizing AI's impact on your life and privacy.",
     ],
     startingAt: "$100 minimum",
     accent: "from-lavender-300 to-fuchsia-300",
@@ -122,8 +122,8 @@ export const serviceCards: ServiceCard[] = [
     ],
     storySteps: [
       "Describe the idea",
-      "Share colors and timing",
-      "Serana sends a quote",
+      "I will confirm if I think i can take on the challenge and give a quote",
+      "We establish a relationship during the process until the piece is complete and delivered.",
     ],
     startingAt: "Quoted per project",
     accent: "from-raspberry-300 to-lavender-300",
@@ -133,33 +133,33 @@ export const serviceCards: ServiceCard[] = [
 export const pricing = [
   {
     name: "Minimum Visit",
-    price: "$100",
-    detail: "Best for small resets, initial troubleshooting, or focused help.",
+    price: "$120",
+    detail: "This is the minimal amount for a visit from me!",
     bullets: [
-      "Covers the first visit minimum",
-      "Clear scope before starting",
-      "Good for same-week requests",
+      "This is the cost for first sessions",
+      "Tips are appreciated but not required",
+      "Extra travel may include a small fee, confirmed before scheduling.",
     ],
   },
   {
-    name: "Flexible Hourly",
+    name: "My Hourly",
     price: "$40/hr",
     detail:
       "Use this when the job is hard to predict or mixed between services.",
     bullets: [
-      "Cleaning, tech, organizing, or AI privacy help",
+      "Cleaning, tech, organizing, or AI privacy help. This is my minimum base rate for any service.",
       "You approve the plan first",
       "Simple and transparent",
     ],
   },
   {
-    name: "Custom Quote",
+    name: "Custom Quotes",
     price: "By request",
     detail:
-      "For deep resets, craft commissions, larger homes, or multi-step tech projects.",
+      "For deep cleanings, craft commissions, larger homes, or multi-step tech projects.",
     bullets: [
-      "Photos help but are optional",
-      "Travel fee may apply",
+      "For AI privacy, tech, or craft projects that require more time",
+      "Material costs may apply",
       "No surprise booking without confirmation",
     ],
   },
@@ -187,26 +187,26 @@ export const faqs = [
   {
     question: "Do I need to make an account?",
     answer:
-      "No. Just send a request form. Serana reviews it and confirms, declines, or suggests a different time.",
+      "No. Just send a request form! I review it and confirm, decline, or will suggest a different time.",
   },
   {
     question: "Why do you ask for a social profile?",
     answer:
-      "For basic safety verification before going to a home or accepting an in-person appointment. Facebook, Instagram, LinkedIn, or another public profile works.",
+      "For basic safety verification before I go to a home or accepting an in-person appointment. Facebook, Instagram, LinkedIn, or another public profile works.",
   },
   {
     question: "Do you bring cleaning supplies?",
     answer:
-      "Serana can bring basics, but supplies offered by the customer are appreciated. The request form asks what you already have available.",
+      "I bring my own supplies! but supplies offered by the customer are appreciated <3 The request form asks what you already have available, if you'd like to share.",
   },
   {
     question: "Do I need to upload photos?",
     answer:
-      "Photos are appreciated because they help estimate time, but they are not required. No shame if you would rather describe the situation instead.",
+      "Photos are appreciated because they help estimate time / tools needed, but they are not required. No shame if you would rather describe the situation instead(:",
   },
   {
     question: "Can I request help this week?",
-    answer: "Yes. Same-week requests are welcome when scheduling works out.",
+    answer: "Yes. Same-week requests are welcome when scheduling works out!",
   },
   {
     question: "What does AI Data Protection mean?",

@@ -11,7 +11,8 @@ export default function ContactPage() {
         body="The booking form is best for real requests, but this works for quick questions, unusual jobs, or craft ideas."
       />
       <div className="mb-6 rounded-[1.5rem] bg-white/70 p-4 text-center text-sm font-bold leading-6 text-ink/65 shadow-sm backdrop-blur">
-        Email: {siteConfig.email} {siteConfig.phone ? ` · Phone/text: ${siteConfig.phone}` : ""}
+        Email: {"serana.robins1998@gmail.com"}{" "}
+        {siteConfig.phone ? ` · Phone/text: ${siteConfig.phone}` : ""}
       </div>
       <ContactForm />
     </main>
