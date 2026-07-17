@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import {
+  sendScheduleBidDiscordNotification,
+  sendScheduleBidSms,
+} from "@/lib/notifications";
+import {
   addDaysToDateKey,
   buildScheduleSlot,
   getDateKeyInTimeZone,
@@ -11,7 +15,6 @@ import { quickBidSchema } from "@/lib/validators";
 export async function POST(request: Request) {
   try {
     const parsed = quickBidSchema.safeParse(await request.json());
-
     if (!parsed.success) {
       return Response.json(
         { error: parsed.error.issues[0]?.message ?? "Invalid quick bid." },
@@ -83,6 +86,29 @@ export async function POST(request: Request) {
           endsAt: slot.endsAt,
         },
       });
+    });
+
+    const notification = {
+      id: bid.id,
+      serviceCategory: bid.serviceCategory as
+        | "cleaning_reset"
+        | "pc_phone_repair"
+        | "ai_data_protection"
+        | "masks_crafts",
+      phone: bid.phone,
+      startsAt: bid.startsAt,
+    };
+    const notificationResults = await Promise.allSettled([
+      sendScheduleBidSms(notification),
+      sendScheduleBidDiscordNotification(notification),
+    ]);
+    notificationResults.forEach((result, index) => {
+      if (result.status === "rejected") {
+        console.error(
+          `${index === 0 ? "SMS" : "Discord"} quick-bid notification failed:`,
+          result.reason,
+        );
+      }
     });
 
     return Response.json({ ok: true, id: bid.id });
