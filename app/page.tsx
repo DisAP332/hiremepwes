@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  BadgeCheck,
-  CalendarDays,
-  MapPin,
-  Phone,
-  Sparkles,
-} from "lucide-react";
+import { BadgeCheck, MapPin, Phone, Sparkles } from "lucide-react";
 import { serviceCards, siteConfig } from "@/data/site";
 
 const serviceLine: Record<string, string> = {
@@ -37,32 +31,17 @@ export default function Home() {
 
           <Link
             href="/schedule"
-            className="mt-4 block rounded-[1.5rem] border border-white/80 bg-gradient-to-r from-lemon-100 via-raspberry-200/35 to-aqua-100 p-3 shadow-lg shadow-raspberry-200/20 transition hover:-translate-y-1 sm:mt-6 sm:p-4"
+            className="mt-4 block rounded-[1.5rem] border border-white/80 bg-gradient-to-r from-lemon-100 via-raspberry-200/35 to-aqua-100 p-4 text-center shadow-lg shadow-raspberry-200/20 transition hover:-translate-y-1 sm:mt-6 sm:p-5"
           >
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white/80 shadow-sm sm:size-14">
-                  <CalendarDays className="size-6 text-raspberry-300 sm:size-7" />
-                </span>
-                <span>
-                  <span className="block text-base font-black text-ink sm:text-xl">
-                    My Schedule + Quick Bid
-                  </span>
-                  <span className="block text-xs font-bold text-ink/60 sm:text-sm">
-                    I do two 3 hour sessions per day! Bid on a day here!
-                  </span>
-                </span>
-              </div>
-              <span className="rounded-full bg-ink px-3 py-2 text-xs font-black text-white">
-                View →
-              </span>
-            </div>
+            <span className="block text-2xl font-black text-ink sm:text-3xl">
+              Schedule now
+            </span>
           </Link>
 
           <div className="mt-3 grid grid-cols-3 gap-2 text-[0.66rem] font-black text-ink/70 sm:mt-4 sm:gap-3 sm:text-sm">
             <div className="rounded-2xl bg-lemon-100/85 p-2 sm:p-3">
               <BadgeCheck className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />
-              $100 min
+              $120 min
             </div>
             <div className="rounded-2xl bg-aqua-100/85 p-2 sm:p-3">
               <Sparkles className="mb-1 size-3.5 text-raspberry-300 sm:size-5" />
@@ -107,7 +86,7 @@ export default function Home() {
                   </p>
                 </div>
                 <span className="mt-2 inline-flex items-center justify-center rounded-full bg-ink px-3 py-1.5 text-[0.72rem] font-black text-white sm:mt-3 sm:py-2 sm:text-sm">
-                  Full request →
+                  Request now →
                 </span>
               </div>
             </Link>

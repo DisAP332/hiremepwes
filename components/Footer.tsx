@@ -82,20 +82,6 @@ export function Footer() {
             </a>
           ),
         )}
-
-        <a
-          href="https://foodsecurityflow.com"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Food Security Flow"
-          title="A mutual-aid project I built"
-          className="social-icon group relative grid h-11 min-w-11 place-items-center rounded-2xl bg-gradient-to-br from-orange-100 via-pink-100 to-rose-200 px-3 text-xl shadow-lg shadow-ink/10 transition duration-300 hover:-translate-y-1 hover:rotate-3 hover:scale-110 focus:outline-none focus-visible:ring-4 focus-visible:ring-lavender-300 sm:h-12 sm:text-2xl"
-          style={animatedStyle({}, socialLinks.length)}
-        >
-          <span className="absolute inset-0 -z-10 rounded-2xl bg-orange-300/50 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
-          <span aria-hidden>🍑</span>
-          <span className="sr-only">Food Security Flow</span>
-        </a>
       </div>
 
       <style>{`
@@ -104,8 +90,7 @@ export function Footer() {
           animation-delay: var(--social-delay);
         }
 
-        .social-icon:hover svg,
-        .social-icon:hover > span[aria-hidden] {
+        .social-icon:hover svg {
           animation: social-footer-wiggle 0.55s ease-in-out both;
         }
 

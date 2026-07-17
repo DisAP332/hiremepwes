@@ -33,9 +33,17 @@ export function SiteNav() {
           ))}
         </nav>
 
-        <Link href="/schedule" className="btn-primary px-3 py-2 text-xs sm:px-4 sm:text-sm">
-          <CalendarDays className="mr-1.5 size-4" /> Schedule
-        </Link>
+        <a
+          href="https://foodsecurityflow.com"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Food Security Flow"
+          title="A mutual-aid project I built"
+          className="group inline-flex items-center gap-1.5 rounded-full bg-gradient-to-br from-orange-100 via-pink-100 to-rose-200 px-3 py-2 text-xs font-black text-ink shadow-md shadow-orange-200/30 transition hover:-translate-y-0.5 hover:scale-105 sm:px-4 sm:text-sm"
+        >
+          <span className="text-base transition group-hover:rotate-6 group-hover:scale-110" aria-hidden>🍑</span>
+          <span className="hidden sm:inline">Food Security Flow</span>
+        </a>
       </div>
 
       <style>{`

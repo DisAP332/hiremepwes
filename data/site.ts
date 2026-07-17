@@ -53,7 +53,7 @@ export const serviceCards: ServiceCard[] = [
       "Share the details",
       "I will confirm a time and plan!",
     ],
-    startingAt: "$100 minimum",
+    startingAt: "$120 minimum",
     accent: "from-coral-300 to-lemon-300",
   },
   {
@@ -77,7 +77,7 @@ export const serviceCards: ServiceCard[] = [
       "Describe the issue",
       "Confirm a time I can help you resolve your problem.",
     ],
-    startingAt: "$100 minimum",
+    startingAt: "$120 minimum",
     accent: "from-aqua-300 to-sky-300",
   },
   {
@@ -101,7 +101,7 @@ export const serviceCards: ServiceCard[] = [
       "Share the areas you feel most vulnerable",
       "Get a practical pathway to minimizing AI's impact on your life and privacy.",
     ],
-    startingAt: "$100 minimum",
+    startingAt: "$120 minimum",
     accent: "from-lavender-300 to-fuchsia-300",
   },
   {
