@@ -5,11 +5,7 @@ import { pricing } from "@/data/site";
 export default function PricingPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionHeader
-        eyebrow="Pricing"
-        title="$100 minimum"
-        body="Simple by default. Fixed quotes can be used for deep resets, custom masks, or larger jobs."
-      />
+      <SectionHeader eyebrow="Pricing" title="$120 minimum" body="" />
       <div className="grid gap-5 md:grid-cols-3">
         {pricing.map((item) => (
           <PriceCard key={item.name} item={item} />
