@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | Serana's Cleaning, Tech, AI Privacy & Crafts`,
+  title: `${siteConfig.name} | Jordan's Cleaning, Tech, AI Privacy & Crafts`,
   description:
-    "Bright local help from Serana in Cincinnati and surrounding areas: cleaning resets, PC/phone help, AI data protection checkups, and handmade masks/crafts.",
+    "Bright local help from Jordan in Cincinnati and surrounding areas: cleaning resets, PC/phone help, AI data protection checkups, and handmade masks/crafts.",
   metadataBase: new URL("https://hiremepwes.com"),
 };
 
