@@ -1,16 +1,15 @@
 import type { ServiceCategory } from "@/lib/validators";
 
 export const siteConfig = {
-  name: "HireMePwes",
+  name: "JB Services",
   domain: "hiremepwes.com",
-  owner: "Jordan Robins",
+  owner: "Jordan Bell",
   email:
     process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "jordan.l.bell1998@gmail.com",
   phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "513-513-0522",
-  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "instagram.com/sunrahnuh",
-  facebook:
-    process.env.NEXT_PUBLIC_FACEBOOK_URL ??
-    "www.facebook.com/people/Serana-Cleans/61591619771069/",
+  linkedin: "https://www.linkedin.com/in/jordan-bell-135205251/",
+  portfolio: "https://jordanbell.net",
+  foodSecurityFlow: "https://foodsecurityflow.com",
   serviceArea: "Cincinnati and surrounding areas",
   includedRadius: "Within about 10 miles",
   extraTravel:
