@@ -24,7 +24,7 @@ export default async function ReviewsPage() {
       <SectionHeader
         eyebrow="Reviews"
         title="Kind words, approved first"
-        body="Reviews are submitted privately and only become public after Serana approves them. Public reviews show initials only."
+        body="Reviews are submitted privately and only become public after Jordan approves them. Public reviews show initials only."
       />
 
       <section className="grid gap-5 md:grid-cols-3">
