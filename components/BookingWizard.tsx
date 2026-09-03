@@ -245,7 +245,7 @@ export function BookingWizard() {
         throw new Error(payload.error ?? "Something went wrong.");
       setStatus("success");
       setServerMessage(
-        "Request sent! Serana will review it and contact you to confirm.",
+        "Request sent! Jordan will review it and contact you to confirm.",
       );
       track("booking_submitted", { service: finalValues.serviceCategory });
       form.reset();
@@ -522,7 +522,7 @@ export function BookingWizard() {
               When should this happen?
             </h2>
             <p className="mt-3 text-sm leading-6 text-ink/65">
-              Same-week requests are okay. You are not booking instantly; Serana
+              Same-week requests are okay. You are not booking instantly; Jordan
               confirms first.
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -576,7 +576,7 @@ export function BookingWizard() {
               Contact
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-ink">
-              How should Serana contact you?
+              How should Jordan contact you?
             </h2>
             <p className="mt-3 text-sm leading-6 text-ink/65">
               A public social profile is required for basic in-person safety
@@ -685,7 +685,7 @@ export function BookingWizard() {
                 differently.
               </p>
               <p>
-                <strong>Safety:</strong> Serana reviews your request and social
+                <strong>Safety:</strong> Jordan reviews your request and social
                 profile before confirming.
               </p>
               <p>
