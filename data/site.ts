@@ -3,9 +3,9 @@ import type { ServiceCategory } from "@/lib/validators";
 export const siteConfig = {
   name: "HireMePwes",
   domain: "hiremepwes.com",
-  owner: "Serana Robins",
+  owner: "Jordan Robins",
   email:
-    process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "serana.robins1998@gmail.com",
+    process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "jordan.l.bell1998@gmail.com",
   phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "513-513-0522",
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "instagram.com/sunrahnuh",
   facebook:
@@ -177,7 +177,7 @@ export const simplePath = [
     emoji: "🕯️",
   },
   {
-    title: "Serana confirms",
+    title: "Jordan confirms",
     body: "Your request is reviewed before anything goes on the calendar.",
     emoji: "📅",
   },
