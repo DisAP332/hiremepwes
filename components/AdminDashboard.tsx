@@ -53,7 +53,7 @@ function mailtoFor(booking: BookingRow) {
     `HireMePwes request: ${booking.serviceLabel}`,
   );
   const body = encodeURIComponent(
-    `Hi ${booking.name},\n\nThank you for your ${booking.serviceLabel} request. I reviewed your info and wanted to follow up about timing and details.\n\nPreferred timing you gave: ${booking.preferredDates}\n\n- Serana Robins`,
+    `Hi ${booking.name},\n\nThank you for your ${booking.serviceLabel} request. I reviewed your info and wanted to follow up about timing and details.\n\nPreferred timing you gave: ${booking.preferredDates}\n\n- Jordan Robins`,
   );
   return `mailto:${booking.email}?subject=${subject}&body=${body}`;
 }
