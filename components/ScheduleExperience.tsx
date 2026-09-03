@@ -139,7 +139,7 @@ export function ScheduleExperience() {
     }
     setSelected(null);
     setPhone("");
-    setStatus("Quick bid sent! Serana will review it before the time is booked.");
+    setStatus("Quick bid sent! Jordan will review it before the time is booked.");
     await load();
   };
 
@@ -302,7 +302,7 @@ export function ScheduleExperience() {
               <input className="input-cute" inputMode="tel" autoComplete="tel" placeholder="(513) 555-1234" value={phone} onChange={(event) => setPhone(event.target.value)} />
             </label>
             <p className="mt-3 text-xs font-bold leading-5 text-ink/50">
-              This sends a request, not an automatic booking. Serana must accept it before it appears as booked.
+              This sends a request, not an automatic booking. Jordan must accept it before it appears as booked.
             </p>
             <button className="btn-primary mt-5 w-full" type="button" disabled={submitting} onClick={submitBid}>
               <CalendarDays className="mr-2 size-5" /> {submitting ? "Sending..." : "Send quick bid"}
