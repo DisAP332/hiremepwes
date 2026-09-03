@@ -1,6 +1,6 @@
 # HireMePwes
 
-Bright, cute, mobile-first local service website for Serana Robins.
+Bright, cute, mobile-first local service website for Jordan Robins.
 
 Built for:
 
@@ -49,7 +49,7 @@ http://localhost:3000
 3. Social profile link is required for in-person safety verification.
 4. Photos are optional but appreciated.
 5. Booking is saved as `pending`.
-6. Serana reviews it in `/admin`.
+6. Jordan reviews it in `/admin`.
 7. Accepted bookings can create a Google Calendar event.
 
 ## Important env vars
@@ -58,12 +58,12 @@ http://localhost:3000
 DATABASE_URL="postgresql://..."
 ADMIN_SECRET="change-me-to-a-long-secret"
 NEXT_PUBLIC_SITE_URL="https://hiremepwes.com"
-NEXT_PUBLIC_BUSINESS_EMAIL="serana.robins1998@gmail.com"
+NEXT_PUBLIC_BUSINESS_EMAIL="jordan.l.bell1998@gmail.com"
 NEXT_PUBLIC_BUSINESS_PHONE=""
 NEXT_PUBLIC_INSTAGRAM_URL=""
 NEXT_PUBLIC_FACEBOOK_URL=""
 RESEND_API_KEY=""
-NOTIFICATION_TO_EMAIL="serana.robins1998@gmail.com"
+NOTIFICATION_TO_EMAIL="jordan.l.bell1998@gmail.com"
 NOTIFICATION_FROM_EMAIL="HireMePwes <booking@hiremepwes.com>"
 BLOB_READ_WRITE_TOKEN=""
 GOOGLE_CLIENT_EMAIL=""
