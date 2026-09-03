@@ -2,8 +2,9 @@
 
 import type { CSSProperties } from "react";
 import type { IconType } from "react-icons";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+import { FaLinkedinIn } from "react-icons/fa";
+import { MdEmail, MdLanguage } from "react-icons/md";
+import { GiPeach } from "react-icons/gi";
 
 type SocialLink = {
   label: string;
@@ -16,30 +17,27 @@ type SocialLink = {
 
 const socialLinks: SocialLink[] = [
   {
-    label: "Instagram",
-    href: "https://www.instagram.com/seranacleans",
-    Icon: FaInstagram,
-    className: "text-white",
-    glowClassName: "bg-fuchsia-300/50",
-    style: {
-      background:
-        "radial-gradient(circle at 30% 110%, #feda75 0%, #fa7e1e 24%, #d62976 48%, #962fbf 72%, #4f5bd5 100%)",
-    },
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/people/Serana-Cleans/61591619771069/",
-    Icon: FaFacebookF,
-    className: "bg-[#1877F2] text-white",
-    glowClassName: "bg-blue-300/50",
-    style: {},
-  },
-  {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/serana-robinson-135205251/?isSelfProfile=true",
+    href: "https://www.linkedin.com/in/jordan-bell-135205251/",
     Icon: FaLinkedinIn,
     className: "bg-[#0A66C2] text-white",
     glowClassName: "bg-sky-300/50",
+    style: {},
+  },
+  {
+    label: "Portfolio",
+    href: "https://jordanbell.net",
+    Icon: MdLanguage,
+    className: "bg-white text-ink",
+    glowClassName: "bg-lavender-300/50",
+    style: {},
+  },
+  {
+    label: "Food Security Flow",
+    href: "https://foodsecurityflow.com",
+    Icon: GiPeach,
+    className: "bg-orange-100 text-orange-700",
+    glowClassName: "bg-orange-300/50",
     style: {},
   },
   {
