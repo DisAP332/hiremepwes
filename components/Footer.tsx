@@ -44,7 +44,7 @@ const socialLinks: SocialLink[] = [
   },
   {
     label: "Email",
-    href: "mailto:serana.robins1998@gmail.com",
+    href: "mailto:jordan.l.bell1998@gmail.com",
     Icon: MdEmail,
     className: "bg-white text-[#EA4335]",
     glowClassName: "bg-red-300/50",
