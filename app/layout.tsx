@@ -13,11 +13,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const bellLogo =
+  "https://raw.githubusercontent.com/DisAP332/portfolio_website_svelte/main/src/lib/assets/images/FullLogo_Transparent.png";
+
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | Jordan's Cleaning, Tech, AI Privacy & Crafts`,
+  title: `JB Services | Cleaning, Tech, AI Privacy & Crafts`,
   description:
-    "Bright local help from Jordan in Cincinnati and surrounding areas: cleaning resets, PC/phone help, AI data protection checkups, and handmade masks/crafts.",
+    "Local help from Jordan in Cincinnati and surrounding areas: cleaning resets, PC/phone help, AI data protection checkups, and handmade masks/crafts.",
   metadataBase: new URL("https://hiremepwes.com"),
+  icons: {
+    icon: bellLogo,
+    shortcut: bellLogo,
+    apple: bellLogo,
+  },
 };
 
 export default function RootLayout({
